@@ -1,0 +1,5 @@
+(library
+ (name balzac)
+ (libraries fpath re bos cmarkit yaml jingoo uri)
+ (preprocess
+  (pps ppx_deriving_yaml)))

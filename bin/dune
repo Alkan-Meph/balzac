@@ -1,0 +1,4 @@
+(executable
+ (public_name balzac)
+ (name main)
+ (libraries balzac cmdliner fpath tiny_httpd))
