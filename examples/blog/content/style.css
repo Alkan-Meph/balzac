@@ -764,3 +764,16 @@ p.hero-text {
 .site-footer p {
   margin: 0;
 }
+
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  vertical-align: bottom;
+  font-weight: 700;
+}
+
+.footer-brand .brand-mark {
+  width: 1.125rem;
+  height: 1.125rem;
+}
