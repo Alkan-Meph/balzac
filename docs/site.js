@@ -1,4 +1,4 @@
-// Theme: follow the system unless the reader picked one with the button.
+// Theme: dark unless the reader picked the light one with the button.
 (function () {
   var root = document.documentElement;
   var saved = null;
@@ -6,8 +6,7 @@
   if (saved === "light" || saved === "dark") root.dataset.theme = saved;
 
   function current() {
-    if (root.dataset.theme) return root.dataset.theme;
-    return matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return root.dataset.theme || "dark";
   }
 
   document.addEventListener("DOMContentLoaded", function () {

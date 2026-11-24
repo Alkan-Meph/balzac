@@ -1,8 +1,38 @@
 /* Example site for balzac.
    A tinted band at the top, a lighter sheet for lists, bold sans headings.
-   Light and dark themes: the system setting by default, or the header button. */
+   Dark by default; the header button switches to the light theme. */
 
 :root {
+  color-scheme: dark;
+
+  --band: #110d26;
+  --sheet: #191433;
+  --ink: #ecebfa;
+  --ink-soft: #b6b0dc;
+  --line: #37305f;
+  --primary: #a99cf5;
+  --on-primary: #110d26;
+  --accent: #f5b963;
+  --code: #1d183a;
+  --code-head: #29224d;
+  --note: #1f1940;
+
+  --syn-keyword: #a99cf5;
+  --syn-string: #f5b963;
+  --syn-value: #6fd0dc;
+  --syn-name: #f29acb;
+
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas,
+    monospace;
+
+  --page: 70rem;
+  --gutter: 1.5rem;
+  --wave: 3rem;
+}
+
+:root[data-theme="light"] {
   color-scheme: light;
 
   --band: #e9e6f7;
@@ -21,55 +51,6 @@
   --syn-string: #a8540a;
   --syn-value: #0b6b78;
   --syn-name: #9b2671;
-
-  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas,
-    monospace;
-
-  --page: 70rem;
-  --gutter: 1.5rem;
-  --wave: 3rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --band: #110d26;
-    --sheet: #191433;
-    --ink: #ecebfa;
-    --ink-soft: #b6b0dc;
-    --line: #37305f;
-    --primary: #a99cf5;
-    --on-primary: #110d26;
-    --accent: #f5b963;
-    --code: #1d183a;
-    --code-head: #29224d;
-    --note: #1f1940;
-    --syn-keyword: #a99cf5;
-    --syn-string: #f5b963;
-    --syn-value: #6fd0dc;
-    --syn-name: #f29acb;
-  }
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --band: #110d26;
-  --sheet: #191433;
-  --ink: #ecebfa;
-  --ink-soft: #b6b0dc;
-  --line: #37305f;
-  --primary: #a99cf5;
-  --on-primary: #110d26;
-  --accent: #f5b963;
-  --code: #1d183a;
-  --code-head: #29224d;
-  --note: #1f1940;
-  --syn-keyword: #a99cf5;
-  --syn-string: #f5b963;
-  --syn-value: #6fd0dc;
-  --syn-name: #f29acb;
 }
 
 /* Base */
