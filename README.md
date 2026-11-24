@@ -7,7 +7,7 @@ HTML pages. Content is written in Markdown, and templates use
 [Jingoo](https://github.com/tategakibunko/jingoo), which follows Jinja2
 closely.
 
-The user guide is online at <https://alkan-meph.github.io/balzac/>. That
+The user guide is online at <https://fr4nk-13.github.io/balzac/>. That
 site is itself built with balzac.
 
 ## Install
@@ -15,7 +15,7 @@ site is itself built with balzac.
 balzac is not on opam yet. Build it from the sources:
 
 ```sh
-git clone https://github.com/Alkan-Meph/balzac.git
+git clone https://github.com/fr4nk-13/balzac.git
 cd balzac
 opam install . --deps-only
 dune build
@@ -41,7 +41,7 @@ dune exec -- balzac serve examples/blog output
 
 The site is then at <http://127.0.0.1:1799/>.
 
-The [user guide](https://alkan-meph.github.io/balzac/articles.html)
+The [user guide](https://fr4nk-13.github.io/balzac/articles.html)
 covers pages, templates, and recipes for a tag page, a sitemap and an
 RSS feed.
 

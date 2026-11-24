@@ -3,11 +3,11 @@ opam-version: "2.0"
 synopsis: "A small static website generator"
 description:
   "A tool for building static websites. It takes your content and templates and turns them into ready-to-publish HTML pages."
-maintainer: ["Alkan-Meph"]
-authors: ["Alkan-Meph"]
+maintainer: ["fr4nk-13"]
+authors: ["fr4nk-13"]
 tags: ["blog" "static site generator" "markdown"]
-homepage: "https://github.com/Alkan-Meph/balzac"
-bug-reports: "https://github.com/Alkan-Meph/balzac/issues"
+homepage: "https://github.com/fr4nk-13/balzac"
+bug-reports: "https://github.com/fr4nk-13/balzac/issues"
 depends: [
   "dune" {>= "3.24"}
   "ocaml"
@@ -37,5 +37,5 @@ build: [
     "@doc" {with-doc}
   ]
 ]
-dev-repo: "git+https://github.com/Alkan-Meph/balzac.git"
+dev-repo: "git+https://github.com/fr4nk-13/balzac.git"
 x-maintenance-intent: ["(latest)"]

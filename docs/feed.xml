@@ -4,8 +4,8 @@
 <channel>
   <title>balzac blog</title>
   <description>Short portraits of writers and composers.</description>
-  <atom:link href="https://alkan-meph.github.io/balzac/feed.xml" rel="self" type="application/rss+xml"/>
-  <link>https://alkan-meph.github.io/balzac/blog.html</link>
+  <atom:link href="https://fr4nk-13.github.io/balzac/feed.xml" rel="self" type="application/rss+xml"/>
+  <link>https://fr4nk-13.github.io/balzac/blog.html</link>
   
   
   
@@ -33,8 +33,8 @@
   
   <item>
     <title>Balzac, a whole society in ninety books</title>
-    <link>https://alkan-meph.github.io/balzac/blog/balzac.html</link>
-    <guid>https://alkan-meph.github.io/balzac/blog/balzac.html</guid>
+    <link>https://fr4nk-13.github.io/balzac/blog/balzac.html</link>
+    <guid>https://fr4nk-13.github.io/balzac/blog/balzac.html</guid>
     <pubDate>24 Nov 2026 00:00:00 GMT</pubDate>
     <description>&lt;p&gt;Honoré de Balzac was born in Tours in 1799 and died in Paris in 1850. In
 about twenty years of work he wrote some ninety novels and stories, which
@@ -64,8 +64,8 @@ thing to name after him. Its development server listens on port 1799.&lt;/p&gt;
   
   <item>
     <title>Dumas and the serial novel</title>
-    <link>https://alkan-meph.github.io/balzac/blog/dumas.html</link>
-    <guid>https://alkan-meph.github.io/balzac/blog/dumas.html</guid>
+    <link>https://fr4nk-13.github.io/balzac/blog/dumas.html</link>
+    <guid>https://fr4nk-13.github.io/balzac/blog/dumas.html</guid>
     <pubDate>17 Nov 2026 00:00:00 GMT</pubDate>
     <description>&lt;p&gt;Alexandre Dumas was born in 1802 in Villers-Cotterêts, north-east of
 Paris. His father, Thomas-Alexandre Dumas, was born in Saint-Domingue to
@@ -94,8 +94,8 @@ and lost it to his creditors within a few years. He died in 1870. In
   
   <item>
     <title>Stendhal, written for later</title>
-    <link>https://alkan-meph.github.io/balzac/blog/stendhal.html</link>
-    <guid>https://alkan-meph.github.io/balzac/blog/stendhal.html</guid>
+    <link>https://fr4nk-13.github.io/balzac/blog/stendhal.html</link>
+    <guid>https://fr4nk-13.github.io/balzac/blog/stendhal.html</guid>
     <pubDate>10 Nov 2026 00:00:00 GMT</pubDate>
     <description>&lt;p&gt;Stendhal is the pen name of Henri Beyle, born in Grenoble in 1783. He
 followed Napoleon&apos;s armies as an administrator, as far as Moscow in
@@ -128,8 +128,8 @@ syndrome.&lt;/p&gt;
   
   <item>
     <title>Liszt and the invention of the recital</title>
-    <link>https://alkan-meph.github.io/balzac/blog/liszt.html</link>
-    <guid>https://alkan-meph.github.io/balzac/blog/liszt.html</guid>
+    <link>https://fr4nk-13.github.io/balzac/blog/liszt.html</link>
+    <guid>https://fr4nk-13.github.io/balzac/blog/liszt.html</guid>
     <pubDate>03 Nov 2026 00:00:00 GMT</pubDate>
     <description>&lt;p&gt;Franz Liszt was born in 1811 in Raiding, then in the Kingdom of Hungary.
 He played in public as a child, studied in Vienna, and settled in Paris
@@ -165,8 +165,8 @@ Balzac drew on them for &lt;em&gt;Béatrix&lt;/em&gt;.&lt;/p&gt;
   
   <item>
     <title>Saint-Saëns, from the organ to the cinema</title>
-    <link>https://alkan-meph.github.io/balzac/blog/saint-saens.html</link>
-    <guid>https://alkan-meph.github.io/balzac/blog/saint-saens.html</guid>
+    <link>https://fr4nk-13.github.io/balzac/blog/saint-saens.html</link>
+    <guid>https://fr4nk-13.github.io/balzac/blog/saint-saens.html</guid>
     <pubDate>27 Oct 2026 00:00:00 GMT</pubDate>
     <description>&lt;p&gt;Camille Saint-Saëns was born in Paris in 1835. He gave his first public
 concert at the Salle Pleyel in 1846, at the age of ten.&lt;/p&gt;

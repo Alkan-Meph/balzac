@@ -5,11 +5,11 @@
 (generate_opam_files true)
 
 (source
- (github Alkan-Meph/balzac))
+ (github fr4nk-13/balzac))
 
-(authors "Alkan-Meph")
+(authors "fr4nk-13")
 
-(maintainers "Alkan-Meph")
+(maintainers "fr4nk-13")
 
 (package
  (name balzac)
