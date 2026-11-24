@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Getting started · balzac</title>
+        
+        <meta name="description" content="Install balzac, create a site and build it.">
+        
+        <link rel="stylesheet" href="https://alkan-meph.github.io/balzac/style.css">
+        <link rel="alternate" type="application/rss+xml" title="balzac blog" href="https://alkan-meph.github.io/balzac/feed.xml">
+        <script src="https://alkan-meph.github.io/balzac/site.js"></script>
+        <script defer
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"
+            integrity="sha384-RH2xi4eIQ/gjtbs9fUXM68sLSi99C7ZWBRX1vDrVv6GQXRibxXLbwO2NGZB74MbU"
+            crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <a class="skip-link" href="#main">Skip to content</a>
+
+        <header class="site-header">
+            <div class="wrap site-header-inner">
+                <a class="brand" href="https://alkan-meph.github.io/balzac/">
+                    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+                        <path class="brand-nib" d="M25 3 C14 6 8 14 7 25 l5-5 c6-1 11-6 13-17z"/>
+                        <path class="brand-stem" d="M4 29 L15 15"/>
+                    </svg>
+                    <span>balzac</span>
+                </a>
+                <nav class="site-nav" aria-label="Main">
+                    <a href="https://alkan-meph.github.io/balzac/articles.html">Guide</a>
+                    <a href="https://alkan-meph.github.io/balzac/blog.html">Blog</a>
+                    <a href="https://alkan-meph.github.io/balzac/tags.html">Tags</a>
+                    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch between light and dark theme" hidden>
+                        <svg viewBox="0 0 20 20" aria-hidden="true">
+                            <circle cx="10" cy="10" r="7.25" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M10 2.75a7.25 7.25 0 0 0 0 14.5z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <main id="main" class="site-main">
+            
+<div class="wrap article-page">
+    <a class="button button-back" href="https://alkan-meph.github.io/balzac/articles.html">
+        <span aria-hidden="true">&larr;</span> Back
+    </a>
+
+    <div class="article-layout">
+        <article class="article">
+            <header class="article-header">
+                <h1>Getting started</h1>
+                
+                
+                <p class="hashtags">
+                    <svg class="hashtags-icon" viewBox="0 0 20 20" aria-hidden="true">
+                        <path d="M3 3h6.5l7.5 7.5-6.5 6.5L3 9.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                        <circle cx="6.75" cy="6.75" r="1.25" fill="currentColor"/>
+                    </svg>
+                    <a href="https://alkan-meph.github.io/balzac/tags.html#tag-guide">#guide</a>
+                </p>
+                
+            </header>
+
+            <div class="prose">
+                <p>This article takes you from an empty folder to a site you can open in a
+browser.</p>
+<h2 id="install"><a class="anchor" aria-hidden="true" href="#install"></a>Install</h2>
+<p>Balzac is built from its sources with opam and dune:</p>
+<pre><code class="language-bash">git clone https://github.com/Alkan-Meph/balzac.git
+cd balzac
+opam install . --deps-only
+dune build
+dune install
+</code></pre>
+<p>After that, the <code>balzac</code> command is available in your opam switch.</p>
+<h2 id="create-a-site"><a class="anchor" aria-hidden="true" href="#create-a-site"></a>Create a site</h2>
+<p>A site is a folder with three things in it:</p>
+<pre><code class="language-text">my-site/
+  config.yml
+  content/
+    index.md
+  templates/
+    page.html
+</code></pre>
+<p><code>config.yml</code> holds the address the site will be published at:</p>
+<pre><code class="language-yaml">base-url: &quot;https://example.org/&quot;
+</code></pre>
+<p><code>content/index.md</code> is a page. It starts with a block of settings, then the
+text:</p>
+<pre><code class="language-markdown">---
+template: &quot;page.html&quot;
+title: &quot;Hello&quot;
+---
+
+Welcome to my site.
+</code></pre>
+<p><code>templates/page.html</code> is the HTML that wraps it:</p>
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;title&gt;{{ title }}&lt;/title&gt;
+&lt;h1&gt;{{ title }}&lt;/h1&gt;
+{{ content }}
+</code></pre>
+<h2 id="build-it"><a class="anchor" aria-hidden="true" href="#build-it"></a>Build it</h2>
+<p>Give balzac the site folder, then the folder to write to:</p>
+<pre><code class="language-bash">balzac build my-site public
+</code></pre>
+<p><code>public/index.html</code> now holds the finished page. The folder can be
+uploaded as it is to any web host.</p>
+<h2 id="work-on-it"><a class="anchor" aria-hidden="true" href="#work-on-it"></a>Work on it</h2>
+<p>While you write, use <code>serve</code> instead. It builds the site, serves it on
+<code>http://127.0.0.1:1799/</code>, and builds it again each time you save a file:</p>
+<pre><code class="language-bash">balzac serve my-site public
+</code></pre>
+<p>The browser does not reload by itself: refresh the page to see a change.</p>
+<h2 id="where-to-go-next"><a class="anchor" aria-hidden="true" href="#where-to-go-next"></a>Where to go next</h2>
+<ul>
+<li><a href="pages.html">Writing pages</a> covers the content folder and the
+settings of a page.</li>
+<li><a href="templates.html">Writing templates</a> lists what a template
+receives.</li>
+<li><a href="recipes.html">Recipes</a> shows an article list, a tags page, a
+sitemap and an RSS feed.</li>
+<li><a href="commands.html">Command reference</a> details <code>build</code> and
+<code>serve</code>.</li>
+</ul>
+
+            </div>
+        </article>
+
+        <aside class="toc" id="toc" hidden>
+            <h2 id="toc-title">On this page</h2>
+            <nav aria-labelledby="toc-title">
+                <ol></ol>
+            </nav>
+        </aside>
+    </div>
+</div>
+
+        </main>
+
+        <footer class="site-footer">
+            <div class="wrap site-footer-inner">
+                <p>An example site, built with balzac.</p>
+                <p><a href="#main">Back to top</a></p>
+            </div>
+        </footer>
+
+        
+<script src="https://alkan-meph.github.io/balzac/toc.js" defer></script>
+
+    </body>
+</html>
+
+
+
+
+

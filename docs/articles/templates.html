@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Writing templates · balzac</title>
+        
+        <meta name="description" content="What a template receives, and how pages share a layout.">
+        
+        <link rel="stylesheet" href="https://alkan-meph.github.io/balzac/style.css">
+        <link rel="alternate" type="application/rss+xml" title="balzac blog" href="https://alkan-meph.github.io/balzac/feed.xml">
+        <script src="https://alkan-meph.github.io/balzac/site.js"></script>
+        <script defer
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"
+            integrity="sha384-RH2xi4eIQ/gjtbs9fUXM68sLSi99C7ZWBRX1vDrVv6GQXRibxXLbwO2NGZB74MbU"
+            crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <a class="skip-link" href="#main">Skip to content</a>
+
+        <header class="site-header">
+            <div class="wrap site-header-inner">
+                <a class="brand" href="https://alkan-meph.github.io/balzac/">
+                    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+                        <path class="brand-nib" d="M25 3 C14 6 8 14 7 25 l5-5 c6-1 11-6 13-17z"/>
+                        <path class="brand-stem" d="M4 29 L15 15"/>
+                    </svg>
+                    <span>balzac</span>
+                </a>
+                <nav class="site-nav" aria-label="Main">
+                    <a href="https://alkan-meph.github.io/balzac/articles.html">Guide</a>
+                    <a href="https://alkan-meph.github.io/balzac/blog.html">Blog</a>
+                    <a href="https://alkan-meph.github.io/balzac/tags.html">Tags</a>
+                    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch between light and dark theme" hidden>
+                        <svg viewBox="0 0 20 20" aria-hidden="true">
+                            <circle cx="10" cy="10" r="7.25" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M10 2.75a7.25 7.25 0 0 0 0 14.5z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <main id="main" class="site-main">
+            
+<div class="wrap article-page">
+    <a class="button button-back" href="https://alkan-meph.github.io/balzac/articles.html">
+        <span aria-hidden="true">&larr;</span> Back
+    </a>
+
+    <div class="article-layout">
+        <article class="article">
+            <header class="article-header">
+                <h1>Writing templates</h1>
+                
+                
+                <p class="hashtags">
+                    <svg class="hashtags-icon" viewBox="0 0 20 20" aria-hidden="true">
+                        <path d="M3 3h6.5l7.5 7.5-6.5 6.5L3 9.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                        <circle cx="6.75" cy="6.75" r="1.25" fill="currentColor"/>
+                    </svg>
+                    <a href="https://alkan-meph.github.io/balzac/tags.html#tag-templates">#templates</a>
+                </p>
+                
+            </header>
+
+            <div class="prose">
+                <p>Templates live in the <code>templates/</code> folder. They are text files with a few
+extra tags: <code>{{ name }}</code> prints a value, and <code>{% ... %}</code> holds logic.</p>
+<p>The language is <a href="https://tategakibunko.github.io/jingoo/">Jingoo</a>, which
+follows Jinja2 closely.</p>
+<h2 id="what-a-template-receives"><a class="anchor" aria-hidden="true" href="#what-a-template-receives"></a>What a template receives</h2>
+<div role="region"><table>
+<tr>
+<th>Name</th>
+<th>Contents</th>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>The title from the front matter</td>
+</tr>
+<tr>
+<td><code>content</code></td>
+<td>The body of the page, already converted to HTML</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>The full address of the page</td>
+</tr>
+<tr>
+<td><code>base_url</code></td>
+<td>The address of the site, ending with <code>/</code></td>
+</tr>
+<tr>
+<td><code>pages</code></td>
+<td>Every page of the site</td>
+</tr>
+</table></div><p>Every other key of the front matter is available under its own name. With
+<code>tags: [article, news]</code> in a page, its template can use <code>tags</code>.</p>
+<p>A name that was never set prints nothing, so an optional key is tested
+with a plain <code>if</code>:</p>
+<pre><code class="language-html">{% if description %}
+&lt;meta name=&quot;description&quot; content=&quot;{{ description }}&quot;&gt;
+{% endif %}
+</code></pre>
+<p>Values are printed as they are, without escaping. That is what lets
+<code>{{ content }}</code> output HTML.</p>
+<h3 id="addresses"><a class="anchor" aria-hidden="true" href="#addresses"></a>Addresses</h3>
+<p><code>base_url</code> is the <code>base-url</code> of <code>config.yml</code>. A final <code>/</code> is added if it
+is missing, so a file name can be appended to it directly.</p>
+<p><code>url</code> is <code>base_url</code> followed by the path of the page. With
+<code>base-url: &quot;https://example.org/&quot;</code>, the page <code>articles/first.md</code> gets
+<code>https://example.org/articles/first.html</code>.</p>
+<h3 id="the-list-of-pages"><a class="anchor" aria-hidden="true" href="#the-list-of-pages"></a>The list of pages</h3>
+<p>Each entry of <code>pages</code> has the same fields as the current page: <code>title</code>,
+<code>content</code>, <code>url</code> and the keys of its front matter.</p>
+<pre><code class="language-html">&lt;ul&gt;
+{% for page in pages %}
+    &lt;li&gt;&lt;a href=&quot;{{ page.url }}&quot;&gt;{{ page.title }}&lt;/a&gt;&lt;/li&gt;
+{% endfor %}
+&lt;/ul&gt;
+</code></pre>
+<h2 id="sharing-a-layout"><a class="anchor" aria-hidden="true" href="#sharing-a-layout"></a>Sharing a layout</h2>
+<p>Put what every page has in common in one file, and leave named holes in
+it. Here is a <code>base.html</code>:</p>
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;title&gt;{{ title }}&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;{{ base_url }}style.css&quot;&gt;
+&lt;main&gt;
+    {% block main %}{% endblock %}
+&lt;/main&gt;
+</code></pre>
+<p>Another template fills the holes by extending it:</p>
+<pre><code class="language-html">{% extends &quot;base.html&quot; %}
+
+{% block main %}
+&lt;h1&gt;{{ title }}&lt;/h1&gt;
+{{ content }}
+{% endblock %}
+</code></pre>
+<p>A smaller piece can also be pulled in where you need it:</p>
+<pre><code class="language-html">{% include &quot;footer.html&quot; %}
+</code></pre>
+<h2 id="linking-to-files-and-pages"><a class="anchor" aria-hidden="true" href="#linking-to-files-and-pages"></a>Linking to files and pages</h2>
+<p>Build the address of a stylesheet, a script or another page from
+<code>base_url</code>:</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;{{ base_url }}style.css&quot;&gt;
+&lt;a href=&quot;{{ base_url }}articles.html&quot;&gt;Articles&lt;/a&gt;
+</code></pre>
+<p>A link written as <code>/style.css</code> only works when the site is published at
+the root of its domain. With <code>base_url</code>, the site can also live in a
+folder, such as <code>https://example.org/docs/</code>.</p>
+<h2 id="differences-with-jinja2"><a class="anchor" aria-hidden="true" href="#differences-with-jinja2"></a>Differences with Jinja2</h2>
+<p>A few habits from Jinja2 do not carry over:</p>
+<ul>
+<li>A loop cannot be filtered with <code>{% for page in pages if ... %}</code>. Put an
+<code>{% if %}</code> inside the loop.</li>
+<li><code>a not in b</code> is not understood. Write <code>not (a in b)</code>.</li>
+<li><code>pages | map(attribute=&quot;tags&quot;)</code> does not work. Collect values with a
+loop, as the <a href="recipes.html#a-tags-page">tags page recipe</a>
+does.</li>
+</ul>
+<p><code>sort(attribute=&quot;order&quot;)</code>, <code>reverse</code>, <code>unique</code>, <code>join</code> and <code>length</code> behave
+as expected.</p>
+
+            </div>
+        </article>
+
+        <aside class="toc" id="toc" hidden>
+            <h2 id="toc-title">On this page</h2>
+            <nav aria-labelledby="toc-title">
+                <ol></ol>
+            </nav>
+        </aside>
+    </div>
+</div>
+
+        </main>
+
+        <footer class="site-footer">
+            <div class="wrap site-footer-inner">
+                <p>An example site, built with balzac.</p>
+                <p><a href="#main">Back to top</a></p>
+            </div>
+        </footer>
+
+        
+<script src="https://alkan-meph.github.io/balzac/toc.js" defer></script>
+
+    </body>
+</html>
+
+
+
+
+

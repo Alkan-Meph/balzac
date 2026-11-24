@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Recipes · balzac</title>
+        
+        <meta name="description" content="An article list, a tags page, a sitemap and an RSS feed.">
+        
+        <link rel="stylesheet" href="https://alkan-meph.github.io/balzac/style.css">
+        <link rel="alternate" type="application/rss+xml" title="balzac blog" href="https://alkan-meph.github.io/balzac/feed.xml">
+        <script src="https://alkan-meph.github.io/balzac/site.js"></script>
+        <script defer
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"
+            integrity="sha384-RH2xi4eIQ/gjtbs9fUXM68sLSi99C7ZWBRX1vDrVv6GQXRibxXLbwO2NGZB74MbU"
+            crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <a class="skip-link" href="#main">Skip to content</a>
+
+        <header class="site-header">
+            <div class="wrap site-header-inner">
+                <a class="brand" href="https://alkan-meph.github.io/balzac/">
+                    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+                        <path class="brand-nib" d="M25 3 C14 6 8 14 7 25 l5-5 c6-1 11-6 13-17z"/>
+                        <path class="brand-stem" d="M4 29 L15 15"/>
+                    </svg>
+                    <span>balzac</span>
+                </a>
+                <nav class="site-nav" aria-label="Main">
+                    <a href="https://alkan-meph.github.io/balzac/articles.html">Guide</a>
+                    <a href="https://alkan-meph.github.io/balzac/blog.html">Blog</a>
+                    <a href="https://alkan-meph.github.io/balzac/tags.html">Tags</a>
+                    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch between light and dark theme" hidden>
+                        <svg viewBox="0 0 20 20" aria-hidden="true">
+                            <circle cx="10" cy="10" r="7.25" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M10 2.75a7.25 7.25 0 0 0 0 14.5z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <main id="main" class="site-main">
+            
+<div class="wrap article-page">
+    <a class="button button-back" href="https://alkan-meph.github.io/balzac/articles.html">
+        <span aria-hidden="true">&larr;</span> Back
+    </a>
+
+    <div class="article-layout">
+        <article class="article">
+            <header class="article-header">
+                <h1>Recipes</h1>
+                
+                
+                <p class="hashtags">
+                    <svg class="hashtags-icon" viewBox="0 0 20 20" aria-hidden="true">
+                        <path d="M3 3h6.5l7.5 7.5-6.5 6.5L3 9.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                        <circle cx="6.75" cy="6.75" r="1.25" fill="currentColor"/>
+                    </svg>
+                    <a href="https://alkan-meph.github.io/balzac/tags.html#tag-templates">#templates</a><a href="https://alkan-meph.github.io/balzac/tags.html#tag-recipes">#recipes</a>
+                </p>
+                
+            </header>
+
+            <div class="prose">
+                <p>Balzac has no notion of article, tag or feed. All of these are built with
+two things: keys you choose in the front matter, and the <code>pages</code> list.</p>
+<p>Each recipe below is used by this site.</p>
+<h2 id="a-list-of-articles"><a class="anchor" aria-hidden="true" href="#a-list-of-articles"></a>A list of articles</h2>
+<p>First, mark the pages that are articles and give them a position. Any
+keys would do; here they are a tag and <code>order</code>:</p>
+<pre><code class="language-yaml">---
+template: &quot;article.html&quot;
+title: &quot;My first article&quot;
+order: 1
+tags: [article]
+---
+</code></pre>
+<p>Then add a page whose only job is to list them. Its body is empty:</p>
+<pre><code class="language-yaml">---
+template: &quot;articles.html&quot;
+title: &quot;Articles&quot;
+---
+</code></pre>
+<p>Its template loops over <code>pages</code> in that order and keeps the tagged ones:</p>
+<pre><code class="language-html">&lt;ol&gt;
+{% for page in pages | sort(attribute=&quot;order&quot;) %}
+{% if page.tags and &quot;article&quot; in page.tags %}
+    &lt;li&gt;&lt;a href=&quot;{{ page.url }}&quot;&gt;{{ page.title }}&lt;/a&gt;&lt;/li&gt;
+{% endif %}
+{% endfor %}
+&lt;/ol&gt;
+</code></pre>
+<p>The blog of this site does the same with a <code>date: &quot;2026-11-24&quot;</code> key:
+dates in that form sort correctly as text, and <code>| reverse</code> puts the
+latest first.</p>
+<h2 id="a-tags-page"><a class="anchor" aria-hidden="true" href="#a-tags-page"></a>A tags page</h2>
+<p>One page lists every tag, with the pages that carry it. A link such as
+<code>tags.html#tag-news</code> then jumps to the right section.</p>
+<p>The template first collects the tags of all pages, then prints one section
+for each:</p>
+<pre><code class="language-html">{% set found = namespace(tags=[]) %}
+{% for page in pages %}
+{% for tag in page.tags %}
+{% set found.tags = found.tags + [tag] %}
+{% endfor %}
+{% endfor %}
+
+{% for tag in found.tags | unique | sort %}
+&lt;section id=&quot;tag-{{ tag }}&quot;&gt;
+    &lt;h2&gt;#{{ tag }}&lt;/h2&gt;
+    &lt;ul&gt;
+    {% for page in pages %}
+    {% if page.tags and tag in page.tags %}
+        &lt;li&gt;&lt;a href=&quot;{{ page.url }}&quot;&gt;{{ page.title }}&lt;/a&gt;&lt;/li&gt;
+    {% endif %}
+    {% endfor %}
+    &lt;/ul&gt;
+&lt;/section&gt;
+{% endfor %}
+</code></pre>
+<p>The <code>namespace</code> is what lets the inner loop add to a list defined outside
+of it.</p>
+<h2 id="a-sitemap"><a class="anchor" aria-hidden="true" href="#a-sitemap"></a>A sitemap</h2>
+<p>A template does not have to produce HTML. The <code>output</code> key gives the page
+another name and extension:</p>
+<pre><code class="language-yaml">---
+template: &quot;sitemap.xml&quot;
+title: &quot;Sitemap&quot;
+output: &quot;sitemap.xml&quot;
+---
+</code></pre>
+<p>The template, <code>templates/sitemap.xml</code>, lists the address of every page
+that kept its default output, which leaves out the sitemap itself:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;urlset xmlns=&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;&gt;
+{% for page in pages %}{% if not page.output %}
+  &lt;url&gt;&lt;loc&gt;{{ page.url }}&lt;/loc&gt;&lt;/url&gt;
+{% endif %}{% endfor %}
+&lt;/urlset&gt;
+</code></pre>
+<p>The result is written to <code>sitemap.xml</code> at the root of the site.</p>
+<h2 id="an-rss-feed"><a class="anchor" aria-hidden="true" href="#an-rss-feed"></a>An RSS feed</h2>
+<p>A feed is made the same way. On this site it lists the posts of the
+blog: pages tagged <code>post</code>, each with a date.</p>
+<pre><code class="language-yaml">---
+template: &quot;post.html&quot;
+title: &quot;My first post&quot;
+date: &quot;2026-11-24&quot;
+tags: [post]
+---
+</code></pre>
+<p>The page of the feed gives it a title and a description:</p>
+<pre><code class="language-yaml">---
+template: &quot;feed.xml&quot;
+title: &quot;My blog&quot;
+description: &quot;The latest posts of my blog.&quot;
+output: &quot;feed.xml&quot;
+---
+</code></pre>
+<p>The template writes one <code>&lt;item&gt;</code> per post, latest first:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+{% set months = [&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;] %}
+&lt;rss version=&quot;2.0&quot; xmlns:atom=&quot;http://www.w3.org/2005/Atom&quot;&gt;
+&lt;channel&gt;
+  &lt;title&gt;{{ title | escape }}&lt;/title&gt;
+  &lt;description&gt;{{ description | escape }}&lt;/description&gt;
+  &lt;atom:link href=&quot;{{ url }}&quot; rel=&quot;self&quot; type=&quot;application/rss+xml&quot;/&gt;
+  &lt;link&gt;{{ base_url }}blog.html&lt;/link&gt;
+  {% for page in pages | sort(attribute=&quot;date&quot;) | reverse %}
+  {% if page.tags and &quot;post&quot; in page.tags %}
+  {% set date = page.date | split(&quot;-&quot;) %}
+  &lt;item&gt;
+    &lt;title&gt;{{ page.title | escape }}&lt;/title&gt;
+    &lt;link&gt;{{ page.url }}&lt;/link&gt;
+    &lt;guid&gt;{{ page.url }}&lt;/guid&gt;
+    &lt;pubDate&gt;{{ date[2] }} {{ months[(date[1] | int) - 1] }} {{ date[0] }} 00:00:00 GMT&lt;/pubDate&gt;
+    &lt;description&gt;{{ page.content | escape }}&lt;/description&gt;
+  &lt;/item&gt;
+  {% endif %}
+  {% endfor %}
+&lt;/channel&gt;
+&lt;/rss&gt;
+</code></pre>
+<p>Two things are worth a word:</p>
+<ul>
+<li>Text goes through <code>escape</code>, because titles and HTML content may hold
+<code>&lt;</code> and <code>&amp;</code>.</li>
+<li>RSS wants dates such as <code>24 Nov 2026 00:00:00 GMT</code>. The template builds
+one from <code>2026-11-24</code> by splitting it and looking the month up in a
+list.</li>
+</ul>
+<p>Announce the feed in the <code>&lt;head&gt;</code> of your pages so that readers find it:</p>
+<pre><code class="language-html">&lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; href=&quot;{{ base_url }}feed.xml&quot;&gt;
+</code></pre>
+
+            </div>
+        </article>
+
+        <aside class="toc" id="toc" hidden>
+            <h2 id="toc-title">On this page</h2>
+            <nav aria-labelledby="toc-title">
+                <ol></ol>
+            </nav>
+        </aside>
+    </div>
+</div>
+
+        </main>
+
+        <footer class="site-footer">
+            <div class="wrap site-footer-inner">
+                <p>An example site, built with balzac.</p>
+                <p><a href="#main">Back to top</a></p>
+            </div>
+        </footer>
+
+        
+<script src="https://alkan-meph.github.io/balzac/toc.js" defer></script>
+
+    </body>
+</html>
+
+
+
+
+
