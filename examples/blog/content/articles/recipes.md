@@ -6,7 +6,7 @@ order: 4
 tags: [article, templates, recipes]
 ---
 
-Balzac has no notion of article, tag or feed. All of these are built with
+balzac has no notion of article, tag or feed. All of these are built with
 two things: keys you choose in the front matter, and the `pages` list.
 
 Each recipe below is used by this site.

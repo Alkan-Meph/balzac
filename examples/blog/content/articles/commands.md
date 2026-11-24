@@ -6,7 +6,7 @@ order: 5
 tags: [article, reference]
 ---
 
-Balzac has two commands. Both take the site folder, then the output
+balzac has two commands. Both take the site folder, then the output
 folder.
 
 ## build

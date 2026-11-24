@@ -112,7 +112,7 @@ those tags.
 
 ## Links
 
-Balzac does not rewrite links. Point them at the generated file, not at
+balzac does not rewrite links. Point them at the generated file, not at
 the Markdown source, and write them relative to the current page:
 
 ```markdown

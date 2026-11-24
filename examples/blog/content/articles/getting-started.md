@@ -11,7 +11,7 @@ browser.
 
 ## Install
 
-Balzac is built from its sources with opam and dune:
+balzac is built from its sources with opam and dune:
 
 ```bash
 git clone https://github.com/Alkan-Meph/balzac.git

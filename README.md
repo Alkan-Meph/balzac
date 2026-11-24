@@ -12,7 +12,7 @@ site is itself built with balzac.
 
 ## Install
 
-Balzac is not on opam yet. Build it from the sources:
+balzac is not on opam yet. Build it from the sources:
 
 ```sh
 git clone https://github.com/Alkan-Meph/balzac.git
