@@ -1,0 +1,34 @@
+name: Release
+
+# Builds the Linux executable of a tagged version and attaches it to the
+# GitHub release of that tag.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: "5.5"
+
+      - name: Install the dependencies
+        run: opam install . --deps-only --yes
+
+      - name: Build
+        run: |
+          opam exec -- dune build --profile release bin/main.exe
+          cp _build/default/bin/main.exe balzac-linux-x86_64
+          ./balzac-linux-x86_64 --version
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" balzac-linux-x86_64 --title "balzac ${GITHUB_REF_NAME#v}" --generate-notes
