@@ -45,6 +45,15 @@ The [user guide](https://fr4nk-13.github.io/balzac/articles.html)
 covers pages, templates, and recipes for a tag page, a sitemap and an
 RSS feed.
 
+## Made with balzac
+
+- [The user guide](https://fr4nk-13.github.io/balzac/)
+  ([sources](examples/blog))
+- [fr4nk13.fr](https://fr4nk13.fr), a personal blog
+  ([sources](https://github.com/fr4nk-13/fr4nk13.fr))
+
+Built a site with balzac? Open a pull request to add it here.
+
 ## To do
 
 - [ ] Tests (yes, yes, test-driven development 🤗)
