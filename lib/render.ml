@@ -30,7 +30,11 @@ let page ~templates_dir ~base_url ~pages page =
   (* TODO: not optimized to recompute these value for each page. *)
   let page_models = models_of_page page in
   let pages_models = List.map (fun page -> Tobj (models_of_page page)) pages in
-  let models = ("base_url", Tstr (Uri.to_string base_url)) :: ("pages", Tlist pages_models) :: page_models in
+  let models =
+    ("base_url", Tstr (Uri.to_string base_url))
+    :: ("pages", Tlist pages_models)
+    :: page_models
+  in
   let env = make_env ~templates_dir in
   let template_path =
     Fpath.(
@@ -42,9 +46,8 @@ let page ~templates_dir ~base_url ~pages page =
         page;
         content = Jingoo.Jg_template.from_file ~env ~models template_path;
       }
-  with
-  | Failure msg
-  | SyntaxError msg ->
-      Error.msgf "%s: %s" page.front_matter.known_attributes.template msg
+  with Failure msg | SyntaxError msg ->
+    Error.msgf "%s: %s" page.front_matter.known_attributes.template msg
 
-let pages ~templates_dir ~base_url pages = map_result (page ~templates_dir ~base_url ~pages) pages
+let pages ~templates_dir ~base_url pages =
+  map_result (page ~templates_dir ~base_url ~pages) pages

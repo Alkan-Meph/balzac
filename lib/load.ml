@@ -8,8 +8,8 @@ let scan_dir content_dir =
         if Fpath.has_ext "md" path then (path :: pages, assets)
         else (pages, path :: assets)
   in
-  Bos.OS.Dir.fold_contents ~elements:`Files ~traverse:`Any ~dotfiles:true classify ([], [])
-    content_dir
+  Bos.OS.Dir.fold_contents ~elements:`Files ~traverse:`Any ~dotfiles:true
+    classify ([], []) content_dir
 
 let of_file ~content_dir ~base_url path =
   let source_path = Fpath.(content_dir // path) in
