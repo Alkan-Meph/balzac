@@ -1,5 +1,10 @@
+(** The [serve] command. *)
+
 open Cmdliner
 
+(** [list_files dir] is the files of [dir] and of its subdirectories, each with
+    its modification time. Errors are reported on the standard error and the
+    files they concern are left out. *)
 let list_files dir =
   let get_mtime path acc =
     match Bos.OS.Path.stat path with
@@ -10,13 +15,19 @@ let list_files dir =
         acc
   in
   match
-    Bos.OS.Dir.fold_contents ~elements:`Files ~traverse:`Any ~dotfiles:true get_mtime [] dir
+    Bos.OS.Dir.fold_contents ~elements:`Files ~traverse:`Any ~dotfiles:true
+      get_mtime [] dir
   with
   | Ok files -> files
   | Error (`Msg msg) ->
       Format.eprintf "⚠️ impossible to list dir %a: %s\n%!" Fpath.pp dir msg;
       []
 
+(** [watch ~input_dir ~output_dir ~base_url files] rebuilds the site each time a
+    file of [input_dir] is added, removed or modified. [files] is the last known
+    state of [input_dir], as given by {!list_files}.
+
+    It looks for changes every half second and never returns. *)
 let rec watch ~input_dir ~output_dir ~base_url files =
   let updated_files = list_files input_dir in
   if updated_files <> files then
@@ -27,6 +38,9 @@ let rec watch ~input_dir ~output_dir ~base_url files =
   Thread.delay 0.5;
   watch ~input_dir ~output_dir ~base_url updated_files
 
+(** [run input_dir output_dir host port] serves [output_dir] over HTTP on [host]
+    and [port], and rebuilds the site when [input_dir] changes. The base URL of
+    the site is the address of the server. *)
 let run input_dir output_dir host port =
   let base_url = Uri.make ~scheme:"http" ~host ~port ~path:"/" () in
   Format.printf "✨ Serving on %a (input: %a) (output: %a)\n%!" Uri.pp base_url
@@ -47,6 +61,7 @@ let run input_dir output_dir host port =
       Printf.eprintf "💥 An error occurred: %s\n" (Printexc.to_string exn);
       Cmd.Exit.some_error
 
+(** The command itself. *)
 let cmd =
   let open Args in
   let host =

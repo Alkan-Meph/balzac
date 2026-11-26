@@ -1,7 +1,15 @@
+(** The [build] command. *)
+
 open Cmdliner
 open Balzac
 open Balzac.Syntax
 
+(** [build ?base_url ~input_dir ~output_dir ()] builds the site of [input_dir]
+    in [output_dir].
+
+    The site is read from [config.yml], [content/] and [templates/] in
+    [input_dir]. [base_url] replaces the base URL of the configuration. A base
+    URL always ends with [/]: one is added when it is missing. *)
 let build ?base_url ~input_dir ~output_dir () =
   let input_dir = Fpath.normalize input_dir in
   let output_dir = Fpath.normalize output_dir in
@@ -28,6 +36,8 @@ let build ?base_url ~input_dir ~output_dir () =
   let* () = Store.pages ~output_dir pages in
   Ok ()
 
+(** [run input_dir output_dir] builds the site, reports the outcome and is the
+    exit code of the command. *)
 let run input_dir output_dir =
   match build ~input_dir ~output_dir () with
   | Ok () ->
@@ -37,6 +47,7 @@ let run input_dir output_dir =
       Printf.eprintf "💥 An error occurred: %s\n" msg;
       Cmd.Exit.some_error
 
+(** The command itself. *)
 let cmd =
   let open Args in
   Cmd.v

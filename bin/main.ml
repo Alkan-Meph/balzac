@@ -1,3 +1,5 @@
+(** The [balzac] command line tool. *)
+
 open Cmdliner
 
 let main_cmd =

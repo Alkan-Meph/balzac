@@ -57,7 +57,6 @@ Built a site with balzac? Open a pull request to add it here.
 ## To do
 
 - [ ] Tests (yes, yes, test-driven development 🤗)
-- [ ] Code documentation
 - [ ] A release on opam
 - [ ] Copy hidden files such as `.nojekyll` from `content/`
 - [ ] Clean the output folder, so that deleted pages do not stay in it
